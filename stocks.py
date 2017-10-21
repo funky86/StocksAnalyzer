@@ -1,3 +1,4 @@
+import math
 import json
 import os
 import stocks_fetcher
@@ -14,10 +15,12 @@ def get_values(symbol):
     data['financials']['eps_quarterly_positive'] = None
     data['financials']['eps_annual_growth'] = []
     data['financials']['eps_annual_positive'] = None
+    data['financials']['eps_quarterly_pace'] = None
     data['evaluation'] = {
         'current_ratio': None,
         'debt_ratio': None,
         'eps_annual_positive': None,
+        'eps_quarterly_pace': None,
         'div_stock': None
     }
 
@@ -27,6 +30,7 @@ def get_values(symbol):
     calculate_ratios(data)
     calculate_eps_growth(data, 'eps_quarterly', 'eps_quarterly_growth', 'eps_quarterly_positive')
     calculate_eps_growth(data, 'eps_annual', 'eps_annual_growth', 'eps_annual_positive')
+    calculate_eps_pace(data, 'eps_quarterly', 'eps_quarterly_pace')
     evaluate_values(data)
 
     return data
@@ -110,7 +114,38 @@ def calculate_eps_growth(data, key_value, key_growth, key_positive):
             pass
         finally:
             data['financials'][key_growth].append(value)
-    data['financials'][key_positive] = positive / count * 100
+    try:
+        data['financials'][key_positive] = positive / count * 100
+    except:
+        pass
+
+def calculate_eps_pace(data, key_value, key_pace):
+    try:
+        eps = data['financials'][key_value]
+        count = math.ceil(len(eps) / 2)
+        is_odd = len(eps) % 2 == 1
+        avg1 = 0
+        avg2 = 0
+        for i in range(len(eps)):
+            curr = eps[i]
+            if is_odd:
+                if i < count-1:
+                    avg1 += curr
+                elif i >= count:
+                    avg2 += curr
+                else:
+                    avg1 += curr
+                    avg2 += curr
+            else:
+                if i <= count-1:
+                    avg1 += curr
+                else:
+                    avg2 += curr
+        avg1 = avg1 / count
+        avg2 = avg2 / count
+        data['financials'][key_pace] = (avg2 - avg1) / avg1 * 100
+    except:
+        pass
 
 def evaluate_values(data):
     for current_ratio, debt_ratio in zip(data['financials']['current_ratio'], data['financials']['debt_ratio']):
@@ -126,6 +161,11 @@ def evaluate_values(data):
 
     try:
         data['evaluation']['eps_annual_positive'] = data['financials']['eps_annual_positive'] == 100
+    except:
+        pass
+
+    try:
+        data['evaluation']['eps_quarterly_pace'] = data['financials']['eps_quarterly_pace'] > 0
     except:
         pass
 

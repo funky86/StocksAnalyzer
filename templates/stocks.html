@@ -9,6 +9,7 @@
 			<td>Current ratio</td>
 			<td>Debt ratio</td>
 			<td>EPS ann [positive %]</td>
+			<td>EPS qrt [pace %]</td>
 			<td>Yield [%]</td>
 		</tr>
 	</thead>
@@ -20,6 +21,7 @@
 			<td>{{ data.financials.current_ratio[0] }} {{ data.evaluation.current_ratio }}</td>
 			<td>{{ data.financials.debt_ratio[0] }} {{ data.evaluation.debt_ratio }}</td>
 			<td>{{ data.financials.eps_annual_positive }} {{ data.evaluation.eps_annual_positive }}</td>
+			<td>{{ data.financials.eps_quarterly_pace }} {{ data.evaluation.eps_quarterly_pace }}</td>
 			<td>{{ data.valuation.div_stock }} {{ data.evaluation.div_stock }}</td>
 		</tr>
 		{% endfor %}
