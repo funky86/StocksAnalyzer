@@ -22,6 +22,14 @@ morningstar_valuation = {
     'pb_stock_5y': None,
     'pb_industry': None,
     'pb_s&p': None,
+    'ps_stock': None,
+    'ps_stock_5y': None,
+    'ps_industry': None,
+    'ps_s&p': None,
+    'pcf_stock': None,
+    'pcf_stock_5y': None,
+    'pcf_industry': None,
+    'pcf_s&p': None,
     'div_stock': None,
     'div_stock_5y': None,
     'div_industry': None,
@@ -107,6 +115,24 @@ def fetch_morningstar_values(symbol):
                     morningstar_valuation['pb_s&p'] = value
                 elif col_idx == 3:
                     morningstar_valuation['pb_stock_5y'] = value
+            elif row_idx == 5:
+                if col_idx == 0:
+                    morningstar_valuation['ps_stock'] = value
+                elif col_idx == 1:
+                    morningstar_valuation['ps_industry'] = value
+                elif col_idx == 2:
+                    morningstar_valuation['ps_s&p'] = value
+                elif col_idx == 3:
+                    morningstar_valuation['ps_stock_5y'] = value
+            elif row_idx == 7:
+                if col_idx == 0:
+                    morningstar_valuation['pcf_stock'] = value
+                elif col_idx == 1:
+                    morningstar_valuation['pcf_industry'] = value
+                elif col_idx == 2:
+                    morningstar_valuation['pcf_s&p'] = value
+                elif col_idx == 3:
+                    morningstar_valuation['pcf_stock_5y'] = value
             elif row_idx == 9:
                 if col_idx == 0:
                     morningstar_valuation['div_stock'] = value

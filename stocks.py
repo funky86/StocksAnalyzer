@@ -19,6 +19,8 @@ def get_values(symbol):
 
     data['valuation']['pe'] = None
     data['valuation']['pb'] = None
+    data['valuation']['ps'] = None
+    data['valuation']['pcf'] = None
     
     data['evaluation'] = {}
     data['evaluation']['current_ratio'] = None
@@ -28,6 +30,8 @@ def get_values(symbol):
     data['evaluation']['div_stock'] = None
     data['evaluation']['pe'] = None
     data['evaluation']['pb'] = None
+    data['evaluation']['ps'] = None
+    data['evaluation']['pcf'] = None
 
     if data['error']:
         return data
@@ -38,6 +42,8 @@ def get_values(symbol):
     calculate_eps_pace(data, 'eps_quarterly', 'eps_quarterly_pace')
     calculate_average(data, 'pe', 'pe_stock', ['pe_stock_5y', 'pe_industry', 'pe_s&p'])
     calculate_average(data, 'pb', 'pb_stock', ['pb_stock_5y', 'pb_industry', 'pb_s&p'])
+    calculate_average(data, 'ps', 'ps_stock', ['ps_stock_5y', 'ps_industry', 'ps_s&p'])
+    calculate_average(data, 'pcf', 'pcf_stock', ['pcf_stock_5y', 'pcf_industry', 'pcf_s&p'])
     evaluate_values(data)
 
     return data
@@ -202,5 +208,15 @@ def evaluate_values(data):
 
     try:
         data['evaluation']['pb'] = data['valuation']['pb'] < 0
+    except:
+        pass
+
+    try:
+        data['evaluation']['ps'] = data['valuation']['ps'] < 0
+    except:
+        pass
+
+    try:
+        data['evaluation']['pcf'] = data['valuation']['pcf'] < 0
     except:
         pass

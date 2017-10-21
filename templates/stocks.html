@@ -12,6 +12,8 @@
 			<td>EPS qrt [pace %]</td>
 			<td>P/E [avg %]</td>
 			<td>Price/Book [avg %]</td>
+			<td>Price/Sales [avg %]</td>
+			<td>Price/Cash Flow [avg %]</td>
 			<td>Yield [%]</td>
 		</tr>
 	</thead>
@@ -26,6 +28,8 @@
 			<td>{{ data.financials.eps_quarterly_pace }} {{ data.evaluation.eps_quarterly_pace }}</td>
 			<td>{{ data.valuation.pe }} {{ data.evaluation.pe }} </td>
 			<td>{{ data.valuation.pb }} {{ data.evaluation.pb }} </td>
+			<td>{{ data.valuation.ps }} {{ data.evaluation.ps }} </td>
+			<td>{{ data.valuation.pcf }} {{ data.evaluation.pcf }} </td>
 			<td>{{ data.valuation.div_stock }} {{ data.evaluation.div_stock }}</td>
 		</tr>
 		{% endfor %}
