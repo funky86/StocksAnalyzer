@@ -16,13 +16,18 @@ def get_values(symbol):
     data['financials']['eps_annual_growth'] = []
     data['financials']['eps_annual_positive'] = None
     data['financials']['eps_quarterly_pace'] = None
-    data['evaluation'] = {
-        'current_ratio': None,
-        'debt_ratio': None,
-        'eps_annual_positive': None,
-        'eps_quarterly_pace': None,
-        'div_stock': None
-    }
+
+    data['valuation']['pe'] = None
+    data['valuation']['pb'] = None
+    
+    data['evaluation'] = {}
+    data['evaluation']['current_ratio'] = None
+    data['evaluation']['debt_ratio'] = None
+    data['evaluation']['eps_annual_positive'] = None
+    data['evaluation']['eps_quarterly_pace'] = None
+    data['evaluation']['div_stock'] = None
+    data['evaluation']['pe'] = None
+    data['evaluation']['pb'] = None
 
     if data['error']:
         return data
@@ -31,6 +36,8 @@ def get_values(symbol):
     calculate_eps_growth(data, 'eps_quarterly', 'eps_quarterly_growth', 'eps_quarterly_positive')
     calculate_eps_growth(data, 'eps_annual', 'eps_annual_growth', 'eps_annual_positive')
     calculate_eps_pace(data, 'eps_quarterly', 'eps_quarterly_pace')
+    calculate_average(data, 'pe', 'pe_stock', ['pe_stock_5y', 'pe_industry', 'pe_s&p'])
+    calculate_average(data, 'pb', 'pb_stock', ['pb_stock_5y', 'pb_industry', 'pb_s&p'])
     evaluate_values(data)
 
     return data
@@ -119,6 +126,19 @@ def calculate_eps_growth(data, key_value, key_growth, key_positive):
     except:
         pass
 
+def calculate_average(data, key_result, key_value, key_checks):
+    value = data['valuation'][key_value]
+
+    try:
+        avg = 0
+        for key_check in key_checks:
+            check = data['valuation'][key_check]
+            avg += (check - value) / check * -100
+        avg = avg / len(key_checks)
+        data['valuation'][key_result] = avg
+    except:
+        pass
+
 def calculate_eps_pace(data, key_value, key_pace):
     try:
         eps = data['financials'][key_value]
@@ -173,4 +193,14 @@ def evaluate_values(data):
         data['evaluation']['div_stock'] = data['valuation']['div_stock'] > 0
     except:
         data['evaluation']['div_stock'] = False
+        pass
+
+    try:
+        data['evaluation']['pe'] = data['valuation']['pe'] < 0
+    except:
+        pass
+
+    try:
+        data['evaluation']['pb'] = data['valuation']['pb'] < 0
+    except:
         pass

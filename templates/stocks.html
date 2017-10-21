@@ -10,6 +10,8 @@
 			<td>Debt ratio</td>
 			<td>EPS ann [positive %]</td>
 			<td>EPS qrt [pace %]</td>
+			<td>P/E [avg %]</td>
+			<td>Price/Book [avg %]</td>
 			<td>Yield [%]</td>
 		</tr>
 	</thead>
@@ -22,6 +24,8 @@
 			<td>{{ data.financials.debt_ratio[0] }} {{ data.evaluation.debt_ratio }}</td>
 			<td>{{ data.financials.eps_annual_positive }} {{ data.evaluation.eps_annual_positive }}</td>
 			<td>{{ data.financials.eps_quarterly_pace }} {{ data.evaluation.eps_quarterly_pace }}</td>
+			<td>{{ data.valuation.pe }} {{ data.evaluation.pe }} </td>
+			<td>{{ data.valuation.pb }} {{ data.evaluation.pb }} </td>
 			<td>{{ data.valuation.div_stock }} {{ data.evaluation.div_stock }}</td>
 		</tr>
 		{% endfor %}
