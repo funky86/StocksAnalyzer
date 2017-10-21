@@ -1,13 +1,20 @@
 <!doctype html>
 
 <head>
-	<title>Stocks</title>
+	<title>Stocks Analyzer</title>
+
+	<!-- Bootstrap -->
+	<script src="{{ url_for('static', filename='js/lib/bootstrap-3.3.7.min.js') }}"></script>
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/lib/bootstrap-3.3.7.min.css') }}">
+	<!-- jQuery -->
+	<script src="{{ url_for('static', filename='js/lib/jquery-3.2.1.min.js') }}"></script>
+
 	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 
 <div class="page">
 
-	<h1>Stocks</h1>
+	<h1>Stocks Analyzer</h1>
 
 	{% block body %}{% endblock %}
 

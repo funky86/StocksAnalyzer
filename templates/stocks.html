@@ -2,35 +2,73 @@
 
 {% block body %}
 
-<table>
+<table class="table table-striped table-hover table-condensed">
 	<thead>
 		<tr>
-			<td>Company</td>
-			<td>Current ratio</td>
-			<td>Debt ratio</td>
-			<td>EPS ann [positive %]</td>
-			<td>EPS qrt [pace %]</td>
-			<td>P/E [avg %]</td>
-			<td>Price/Book [avg %]</td>
-			<td>Price/Sales [avg %]</td>
-			<td>Price/Cash Flow [avg %]</td>
-			<td>Yield [%]</td>
+			<th>Company</th>
+			<th>Current ratio</th>
+			<th>Debt ratio</th>
+			<th>EPS ann [positive %]</th>
+			<th>EPS qrt [pace %]</th>
+			<th>P/E [avg %]</th>
+			<th>Price/Book [avg %]</th>
+			<th>Price/Sales [avg %]</th>
+			<th>Price/Cash Flow [avg %]</th>
+			<th>Yield [%]</th>
 		</tr>
 	</thead>
 
 	<tbody>
 		{% for data in stocks_data %}
 		<tr>
-			<td>{{ data.financials.company }}</td>
-			<td>{{ data.financials.current_ratio[0] }} {{ data.evaluation.current_ratio }}</td>
-			<td>{{ data.financials.debt_ratio[0] }} {{ data.evaluation.debt_ratio }}</td>
-			<td>{{ data.financials.eps_annual_positive }} {{ data.evaluation.eps_annual_positive }}</td>
-			<td>{{ data.financials.eps_quarterly_pace }} {{ data.evaluation.eps_quarterly_pace }}</td>
-			<td>{{ data.valuation.pe }} {{ data.evaluation.pe }} </td>
-			<td>{{ data.valuation.pb }} {{ data.evaluation.pb }} </td>
-			<td>{{ data.valuation.ps }} {{ data.evaluation.ps }} </td>
-			<td>{{ data.valuation.pcf }} {{ data.evaluation.pcf }} </td>
-			<td>{{ data.valuation.div_stock }} {{ data.evaluation.div_stock }}</td>
+			{% set company = data.financials.company %}
+			
+			{% set current_ratio = data.financials.current_ratio[0] %}
+			{% set current_ratio = current_ratio|round(1) if current_ratio else current_ratio %}
+			{% set current_ratio_class = 'success' if data.evaluation.current_ratio else 'danger' %}
+			
+			{% set debt_ratio = data.financials.debt_ratio[0] %}
+			{% set debt_ratio = debt_ratio|round(1) if debt_ratio else debt_ratio %}
+			{% set debt_ratio_class = 'success' if data.evaluation.debt_ratio else 'danger' %}
+			
+			{% set eps_annual_positive = data.financials.eps_annual_positive %}
+			{% set eps_annual_positive = eps_annual_positive|round(1) if eps_annual_positive else eps_annual_positive %}
+			{% set eps_annual_positive_class = 'success' if data.evaluation.eps_annual_positive else 'danger' %}
+
+			{% set eps_quarterly_pace = data.financials.eps_quarterly_pace %}
+			{% set eps_quarterly_pace = eps_quarterly_pace|round(1) if eps_quarterly_pace else eps_quarterly_pace %}
+			{% set eps_quarterly_pace_class = 'success' if data.evaluation.eps_quarterly_pace else 'danger' %}
+
+			{% set pe = data.valuation.pe %}
+			{% set pe = pe|round(1) if pe else pe %}
+			{% set pe_class = 'success' if data.evaluation.pe else 'danger' %}
+
+			{% set pb = data.valuation.pb %}
+			{% set pb = pb|round(1) if pb else pb %}
+			{% set pb_class = 'success' if data.evaluation.pb else 'danger' %}
+
+			{% set ps = data.valuation.ps %}
+			{% set ps = ps|round(1) if ps else ps %}
+			{% set ps_class = 'success' if data.evaluation.ps else 'danger' %}
+
+			{% set pcf = data.valuation.pcf %}
+			{% set pcf = pcf|round(1) if pcf else pcf %}
+			{% set pcf_class = 'success' if data.evaluation.pcf else 'danger' %}
+
+			{% set div_stock = data.valuation.div_stock %}
+			{% set div_stock = div_stock|round(1) if div_stock else div_stock %}
+			{% set div_stock_class = 'success' if data.evaluation.div_stock else 'danger' %}			
+
+			<td>{{ company }}</td>
+			<td class="{{ current_ratio_class }}">{{ current_ratio }}</td>
+			<td class="{{ debt_ratio_class }}">{{ debt_ratio }}</td>
+			<td class="{{ eps_annual_positive_class }}">{{ eps_annual_positive }}</td>
+			<td class="{{ eps_quarterly_pace_class }}">{{ eps_quarterly_pace }}</td>
+			<td class="{{ pe_class }}">{{ pe }} </td>
+			<td class="{{ pb_class }}">{{ pb }} </td>
+			<td class="{{ ps_class }}">{{ ps }} </td>
+			<td class="{{ pcf_class }}">{{ pcf }} </td>
+			<td class="{{ div_stock_class }}">{{ div_stock }}</td>
 		</tr>
 		{% endfor %}
 	</tbody>
