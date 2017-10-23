@@ -1,3 +1,5 @@
-h1 {
+.page-title {
     color: red;
+    font-size: 1.2em;
+    font-weight: bold;
 }
