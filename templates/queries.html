@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+<script>
+
+</script>
+
+<div class="page-title">Queries</div>
+
+{% set url = 'https://finviz.com/screener.ashx?v=411&s=ta_unusualvolume&f=ta_perf_dup,ta_perf2_52wdown,ta_sma20_pa&ft=3' %}
+
+<table class="table table-striped table-hover table-condensed">
+	<thead>
+		<tr>
+			<th>Source</th>
+			<th>Link</th>
+			<th>Description</th>
+			<th>Options</th>
+		</tr>
+	</thead>
+
+	<tbody>
+		<tr>
+			<td>finviz.com</td>
+			<td>
+				<input type="text" class="form-control" value="{{ url }}">
+			</td>
+			<td>
+				<input type="text" class="form-control" value="Signal: Unusal Volume, Performance: Today Up, Performance 2: Year Down, 20-Day Simple Moving Average: Price above SMA20">
+			</td>
+			<td>
+				<a href="{{ url_for('stocks', request_type='finviz', url=url) }}" class="btn btn-primary" role="button">Show</a>
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+{% endblock %}

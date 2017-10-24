@@ -55,9 +55,9 @@ def fetch_data(symbol):
 
     data = {
         'error': None,
-        'financials': None,
-        'valuation': None,
-        'evaluation': None
+        'financials': {},
+        'valuation': {},
+        'evaluation': {}
     }
 
     if os.path.exists(cache_file):
@@ -66,9 +66,9 @@ def fetch_data(symbol):
         financials = stocks_fetcher.fetch_google_values(symbol)
         valuation = stocks_fetcher.fetch_morningstar_values(symbol)
 
-        if financials['error']:
+        if financials['error'] is not None:
             data['error'] = financials['error']
-        elif valuation['error']:
+        elif valuation['error'] is not None:
             data['error'] = valuation['error']
         else:
             data['financials'] = financials

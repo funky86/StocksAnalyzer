@@ -2,7 +2,7 @@
 
 {% block body %}
 
-<div class="page-title">Stocks</div>
+<span class="page-title">Stocks</span>
 
 <table class="table table-striped table-hover table-condensed">
 	<thead>
@@ -13,9 +13,9 @@
 			<th>EPS ann [positive %]</th>
 			<th>EPS qrt [pace %]</th>
 			<th>P/E [avg %]</th>
-			<th>Price/Book [avg %]</th>
-			<th>Price/Sales [avg %]</th>
-			<th>Price/Cash Flow [avg %]</th>
+			<!-- <th>Price/Book [avg %]</th> -->
+			<!-- <th>Price/Sales [avg %]</th> -->
+			<!-- <th>Price/Cash Flow [avg %]</th> -->
 			<th>Yield [%]</th>
 		</tr>
 	</thead>
@@ -67,13 +67,17 @@
 			<td class="{{ eps_annual_positive_class }}">{{ eps_annual_positive }}</td>
 			<td class="{{ eps_quarterly_pace_class }}">{{ eps_quarterly_pace }}</td>
 			<td class="{{ pe_class }}">{{ pe }} </td>
-			<td class="{{ pb_class }}">{{ pb }} </td>
-			<td class="{{ ps_class }}">{{ ps }} </td>
-			<td class="{{ pcf_class }}">{{ pcf }} </td>
+			<!-- <td class="{{ pb_class }}">{{ pb }} </td> -->
+			<!-- <td class="{{ ps_class }}">{{ ps }} </td> -->
+			<!-- <td class="{{ pcf_class }}">{{ pcf }} </td> -->
 			<td class="{{ div_stock_class }}">{{ div_stock }}</td>
 		</tr>
 		{% endfor %}
 	</tbody>
 </table>
+
+{% if error|length %}
+<span class="error-message">Error: {{ error[0] }}</span>
+{% endif %}
 
 {% endblock %}

@@ -1,5 +1,6 @@
 from bs4 import BeautifulSoup
 
+import copy
 import urllib.request
 
 google_financials = {
@@ -47,9 +48,11 @@ def fetch_google_values(symbol):
     meta = soup.find('meta')
     tables = soup.find_all('table', id='fs-table')
 
-    if len(tables) != 6:
-        google_financials['error'] = 'Error reading financials from Google Finance. Stock symbol {0} might not exist.'.format(symbol)
-        return google_financials
+    data = copy.deepcopy(google_financials)
+
+    if len(tables) < 3:
+        data['error'] = 'Error reading financials from Google Finance. Stock symbol {0} might not exist.'.format(symbol)
+        return data
 
     description = meta['content']
     find_text = 'See revenue, expenses, profit, cash, assets, liabilities, shareholder’s equity and more for the lastest fiscal quarter/year for '
@@ -61,14 +64,14 @@ def fetch_google_values(symbol):
     income_statement_ann = tables[1].find('tbody').find_all('tr')
     balance_sheet_qrt = tables[2].find('tbody').find_all('tr')
 
-    google_financials['company'] = description
-    google_financials['eps_quarterly'] = get_google_values(income_statement_qrt, 'Diluted Normalized EPS')
-    google_financials['eps_annual'] = get_google_values(income_statement_ann, 'Diluted Normalized EPS')
-    google_financials['total_current_assets'] = get_google_values(balance_sheet_qrt, 'Total Current Assets')
-    google_financials['total_current_liabilities'] = get_google_values(balance_sheet_qrt, 'Total Current Liabilities')
-    google_financials['total_long_term_debt'] = get_google_values(balance_sheet_qrt, 'Total Long Term Debt')
+    data['company'] = description
+    data['eps_quarterly'] = get_google_values(income_statement_qrt, 'Diluted Normalized EPS')
+    data['eps_annual'] = get_google_values(income_statement_ann, 'Diluted Normalized EPS')
+    data['total_current_assets'] = get_google_values(balance_sheet_qrt, 'Total Current Assets')
+    data['total_current_liabilities'] = get_google_values(balance_sheet_qrt, 'Total Current Liabilities')
+    data['total_long_term_debt'] = get_google_values(balance_sheet_qrt, 'Total Long Term Debt')
 
-    return google_financials
+    return data
 
 def fetch_morningstar_values(symbol):
     url_format = 'https://financials.morningstar.com/valuate/current-valuation-list.action?&t={0}&region=usa&culture=en-US'
@@ -80,9 +83,11 @@ def fetch_morningstar_values(symbol):
     soup = BeautifulSoup(html, 'html.parser')
     table = soup.find('table', id='currentValuationTable')
 
+    data = copy.deepcopy(morningstar_valuation)
+
     if not table:
-        morningstar_valuation['error'] = 'Error reading valuation from Morningstar. Stock symbol {0} might not exist.'.format(symbol)
-        return morningstar_valuation
+        data['error'] = 'Error reading valuation from Morningstar. Stock symbol {0} might not exist.'.format(symbol)
+        return data
 
     table = table.find('tbody').find_all('tr')
 
@@ -99,55 +104,55 @@ def fetch_morningstar_values(symbol):
 
             if row_idx == 1:
                 if col_idx == 0:
-                    morningstar_valuation['pe_stock'] = value
+                    data['pe_stock'] = value
                 elif col_idx == 1:
-                    morningstar_valuation['pe_industry'] = value
+                    data['pe_industry'] = value
                 elif col_idx == 2:
-                    morningstar_valuation['pe_s&p'] = value
+                    data['pe_s&p'] = value
                 elif col_idx == 3:
-                    morningstar_valuation['pe_stock_5y'] = value
+                    data['pe_stock_5y'] = value
             elif row_idx == 3:
                 if col_idx == 0:
-                    morningstar_valuation['pb_stock'] = value
+                    data['pb_stock'] = value
                 elif col_idx == 1:
-                    morningstar_valuation['pb_industry'] = value
+                    data['pb_industry'] = value
                 elif col_idx == 2:
-                    morningstar_valuation['pb_s&p'] = value
+                    data['pb_s&p'] = value
                 elif col_idx == 3:
-                    morningstar_valuation['pb_stock_5y'] = value
+                    data['pb_stock_5y'] = value
             elif row_idx == 5:
                 if col_idx == 0:
-                    morningstar_valuation['ps_stock'] = value
+                    data['ps_stock'] = value
                 elif col_idx == 1:
-                    morningstar_valuation['ps_industry'] = value
+                    data['ps_industry'] = value
                 elif col_idx == 2:
-                    morningstar_valuation['ps_s&p'] = value
+                    data['ps_s&p'] = value
                 elif col_idx == 3:
-                    morningstar_valuation['ps_stock_5y'] = value
+                    data['ps_stock_5y'] = value
             elif row_idx == 7:
                 if col_idx == 0:
-                    morningstar_valuation['pcf_stock'] = value
+                    data['pcf_stock'] = value
                 elif col_idx == 1:
-                    morningstar_valuation['pcf_industry'] = value
+                    data['pcf_industry'] = value
                 elif col_idx == 2:
-                    morningstar_valuation['pcf_s&p'] = value
+                    data['pcf_s&p'] = value
                 elif col_idx == 3:
-                    morningstar_valuation['pcf_stock_5y'] = value
+                    data['pcf_stock_5y'] = value
             elif row_idx == 9:
                 if col_idx == 0:
-                    morningstar_valuation['div_stock'] = value
+                    data['div_stock'] = value
                 elif col_idx == 1:
-                    morningstar_valuation['div_industry'] = value
+                    data['div_industry'] = value
                 elif col_idx == 2:
-                    morningstar_valuation['div_s&p'] = value
+                    data['div_s&p'] = value
                 elif col_idx == 3:
-                    morningstar_valuation['div_stock_5y'] = value
+                    data['div_stock_5y'] = value
 
             col_idx += 1
 
         row_idx += 1
 
-    return morningstar_valuation
+    return data
 
 def get_google_values(table, search_string):
     data = []

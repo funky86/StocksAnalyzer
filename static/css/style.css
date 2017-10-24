@@ -1,5 +1,9 @@
 .page-title {
-    color: red;
+    color: blue;
     font-size: 1.2em;
     font-weight: bold;
+}
+
+.error-message {
+    color: red;
 }
