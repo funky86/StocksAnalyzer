@@ -1,9 +1,8 @@
+import app_global
 import math
 import json
 import os
 import stocks_fetcher
-
-from datetime import date
 
 def get_values(symbol):
     data = fetch_data(symbol)
@@ -49,13 +48,7 @@ def get_values(symbol):
     return data
 
 def fetch_data(symbol):
-    today = date.today()
-    date_str = today.strftime('%Y-%m-%d')
-
-    cache_dir = 'cache'
-    if not os.path.exists(cache_dir):
-        os.makedirs(cache_dir)
-    cache_file = cache_dir + os.sep + '{0}_{1}.json'.format(date_str, symbol)
+    cache_file = app_global.Global.get_cache_filename(symbol)
     
     data = {
         'error': None,
