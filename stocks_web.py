@@ -14,6 +14,7 @@ def stocks():
     error = []
 
     request_type = request.args.get('request_type')
+    for_cache = request.args.get('for_cache')
 
     if request_type is None:
         error.append("Missing expected HTTP parameter: request_type")
@@ -23,7 +24,10 @@ def stocks():
         elif request_type == 'finviz':
             fill_stocks_data_finviz(data, error)
 
-    return render_template('stocks.html', stocks_data=data, error=error)
+    if for_cache is None:
+        return render_template('stocks.html', stocks_data=data, error=error)
+    else:
+        return 'data_length={0} error={1}'.format(len(data), error)
 
 @app.route('/queries')
 def queries():
@@ -52,7 +56,7 @@ def fill_stocks_data_finviz(data, error):
     if url is None:
         error.append("Missing expected HTTP parameter: url")
         return
-    expected_url = "https://finviz.com/screener.ashx?v=411"
+    expected_url = "https://finviz.com/screener.ashx"
     if not url.startswith(expected_url):
         error.append("The URL doesn't start with expected value: {0}".format(expected_url))
         return

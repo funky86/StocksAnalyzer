@@ -51,10 +51,15 @@ def get_values(symbol):
 def fetch_data(symbol):
     today = date.today()
     date_str = today.strftime('%Y-%m-%d')
-    cache_file = '{0}_{1}.json'.format(date_str, symbol)
 
+    cache_dir = 'cache'
+    if not os.path.exists(cache_dir):
+        os.makedirs(cache_dir)
+    cache_file = cache_dir + os.sep + '{0}_{1}.json'.format(date_str, symbol)
+    
     data = {
         'error': None,
+        'symbol': symbol,
         'financials': {},
         'valuation': {},
         'evaluation': {}
@@ -65,7 +70,6 @@ def fetch_data(symbol):
     else:
         financials = stocks_fetcher.fetch_google_values(symbol)
         valuation = stocks_fetcher.fetch_morningstar_values(symbol)
-
         if financials['error'] is not None:
             data['error'] = financials['error']
         elif valuation['error'] is not None:

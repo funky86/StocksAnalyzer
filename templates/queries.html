@@ -24,10 +24,10 @@
 		<tr>
 			<td>finviz.com</td>
 			<td>
-				<input type="text" class="form-control" value="{{ url }}">
+				<span>{{ url }}</span>
 			</td>
 			<td>
-				<input type="text" class="form-control" value="Signal: Unusal Volume, Performance: Today Up, Performance 2: Year Down, 20-Day Simple Moving Average: Price above SMA20">
+				<span>Signal: Unusal Volume, Performance: Today Up, Performance 2: Year Down, 20-Day Simple Moving Average: Price above SMA20</span>
 			</td>
 			<td>
 				<a href="{{ url_for('stocks', request_type='finviz', url=url) }}" class="btn btn-primary" role="button">Show</a>

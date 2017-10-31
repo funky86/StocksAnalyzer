@@ -23,7 +23,11 @@
 	<tbody>
 		{% for data in stocks_data %}
 		<tr>
+			{% if data.error is none %}
 			{% set company = data.financials.company %}
+			{% else %}
+			{% set company = data.symbol %}
+			{% endif %}
 			
 			{% set current_ratio = data.financials.current_ratio[0] %}
 			{% set current_ratio = current_ratio|round(1) if current_ratio else current_ratio %}
