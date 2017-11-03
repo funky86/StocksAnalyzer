@@ -1,5 +1,6 @@
-from datetime import date
 import os
+
+from datetime import date
 
 cache_dir = 'cache'
 conf_dir = 'conf'

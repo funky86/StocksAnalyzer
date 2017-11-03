@@ -1,8 +1,9 @@
-import app_global
 import math
 import json
 import os
-import stocks_fetcher
+
+from src import app_global
+from src import stocks_fetcher
 
 def get_values(symbol):
     data = fetch_data(symbol)

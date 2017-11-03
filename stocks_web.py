@@ -34,7 +34,7 @@ def queries():
     return render_template('queries.html')
 
 def fill_stocks_data_symbols(data, error):
-    import stocks
+    from src import stocks
 
     symbols = request.args.get('list')
 
@@ -49,7 +49,8 @@ def fill_stocks_data_symbols(data, error):
 def fill_stocks_data_finviz(data, error):
     from bs4 import BeautifulSoup
     import urllib.request
-    import stocks
+    
+    from src import stocks
 
     url = request.args.get('url')
 

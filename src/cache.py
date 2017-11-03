@@ -1,10 +1,11 @@
-import app_global
 import logging
 import logging.config
 import os
 import time
 import urllib.request
 import urllib.parse
+
+from src import app_global
 
 url_format = 'http://127.0.0.1:5000/stocks?request_type=finviz&for_cache&url={0}'
 finviz_url = 'https://finviz.com/screener.ashx?v=411&s=ta_unusualvolume&ft=3'

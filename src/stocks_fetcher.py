@@ -1,7 +1,7 @@
-from bs4 import BeautifulSoup
-
 import copy
 import urllib.request
+
+from bs4 import BeautifulSoup
 
 google_financials = {
     'error': None,
