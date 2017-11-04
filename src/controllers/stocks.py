@@ -16,6 +16,8 @@ def get_output():
         elif request_type == 'finviz':
             fill_stocks_data_finviz(data, error)
 
+        prepare_for_output(data)
+
     if for_cache is None:
         return render_template('stocks.html', stocks_data=data, error=error)
     else:
@@ -66,3 +68,6 @@ def fill_stocks_data_finviz(data, error):
 
         stock_data = stocks.get_values(symbol)
         data.append(stock_data)
+
+def prepare_for_output(data):
+    pass

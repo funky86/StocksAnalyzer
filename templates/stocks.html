@@ -17,6 +17,7 @@
 			<!-- <th>Price/Sales [avg %]</th> -->
 			<!-- <th>Price/Cash Flow [avg %]</th> -->
 			<th>Yield [%]</th>
+			<th>Links</th>
 		</tr>
 	</thead>
 
@@ -75,6 +76,23 @@
 			<!-- <td class="{{ ps_class }}">{{ ps }} </td> -->
 			<!-- <td class="{{ pcf_class }}">{{ pcf }} </td> -->
 			<td class="{{ div_stock_class }}">{{ div_stock }}</td>
+			<td>
+				<a href="https://finviz.com/quote.ashx?t={{ data.symbol }}" target="_blank" class="stock-external-page-link">
+					<img src="{{ url_for('static', filename='img/stocks-external-links/finviz.png') }}" title="finviz chart for {{ data.symbol }}" />
+				</a>
+
+				<a href="https://www.tradingview.com/chart/?symbol={{ data.symbol }}" target="_blank" class="stock-external-page-link">
+					<img src="{{ url_for('static', filename='img/stocks-external-links/tradingview.ico') }}" title="tradingview chart for {{ data.symbol }}" />
+				</a>
+
+				<a href="https://finance.yahoo.com/quote/{{ data.symbol }}" target="_blank" class="stock-external-page-link">
+					<img src="{{ url_for('static', filename='img/stocks-external-links/yahoo-finance.ico') }}" title="Yahoo Finance page for {{ data.symbol }}" />
+				</a>
+
+				<a href="https://finance.google.com/finance?q={{ data.symbol }}&ei=Ftb8WaDmEoPYswHV9YnwBg" target="_blank" class="stock-external-page-link">
+					<img src="{{ url_for('static', filename='img/stocks-external-links/google-finance.ico') }}" title="Google Finance page for {{ data.symbol }}" />
+				</a>
+			</td>
 		</tr>
 		{% endfor %}
 	</tbody>
