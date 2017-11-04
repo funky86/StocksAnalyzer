@@ -8,16 +8,24 @@
 	<thead>
 		<tr>
 			<th>Company</th>
+			<th colspan="2">Debt</th>
+			<th colspan="2">Growth rate</th>
+			<th colspan="4">Valuation</th>
+			<th>Dividends</th>
+			<th>Tools</th>
+		</tr>
+		<tr>
+			<th>Name and stock symbol</th>
 			<th>Current ratio</th>
 			<th>Debt ratio</th>
 			<th>EPS ann [positive %]</th>
 			<th>EPS qrt [pace %]</th>
 			<th>P/E [avg %]</th>
-			<!-- <th>Price/Book [avg %]</th> -->
-			<!-- <th>Price/Sales [avg %]</th> -->
-			<!-- <th>Price/Cash Flow [avg %]</th> -->
+			<th>Price/Book [avg %]</th>
+			<th>Price/Sales [avg %]</th>
+			<th>Price/Cash Flow [avg %]</th>
 			<th>Yield [%]</th>
-			<th>Links</th>
+			<th>External links</th>
 		</tr>
 	</thead>
 
@@ -30,52 +38,26 @@
 			{% set company = data.symbol %}
 			{% endif %}
 			
-			{% set current_ratio = data.financials.current_ratio[0] %}
-			{% set current_ratio = current_ratio|round(1) if current_ratio else current_ratio %}
 			{% set current_ratio_class = 'success' if data.evaluation.current_ratio else 'danger' %}
-			
-			{% set debt_ratio = data.financials.debt_ratio[0] %}
-			{% set debt_ratio = debt_ratio|round(1) if debt_ratio else debt_ratio %}
 			{% set debt_ratio_class = 'success' if data.evaluation.debt_ratio else 'danger' %}
-			
-			{% set eps_annual_positive = data.financials.eps_annual_positive %}
-			{% set eps_annual_positive = eps_annual_positive|round(1) if eps_annual_positive else eps_annual_positive %}
 			{% set eps_annual_positive_class = 'success' if data.evaluation.eps_annual_positive else 'danger' %}
-
-			{% set eps_quarterly_pace = data.financials.eps_quarterly_pace %}
-			{% set eps_quarterly_pace = eps_quarterly_pace|round(1) if eps_quarterly_pace else eps_quarterly_pace %}
 			{% set eps_quarterly_pace_class = 'success' if data.evaluation.eps_quarterly_pace else 'danger' %}
-
-			{% set pe = data.valuation.pe %}
-			{% set pe = pe|round(1) if pe else pe %}
 			{% set pe_class = 'success' if data.evaluation.pe else 'danger' %}
-
-			{% set pb = data.valuation.pb %}
-			{% set pb = pb|round(1) if pb else pb %}
 			{% set pb_class = 'success' if data.evaluation.pb else 'danger' %}
-
-			{% set ps = data.valuation.ps %}
-			{% set ps = ps|round(1) if ps else ps %}
 			{% set ps_class = 'success' if data.evaluation.ps else 'danger' %}
-
-			{% set pcf = data.valuation.pcf %}
-			{% set pcf = pcf|round(1) if pcf else pcf %}
 			{% set pcf_class = 'success' if data.evaluation.pcf else 'danger' %}
-
-			{% set div_stock = data.valuation.div_stock %}
-			{% set div_stock = div_stock|round(1) if div_stock else div_stock %}
 			{% set div_stock_class = 'success' if data.evaluation.div_stock else 'danger' %}			
 
 			<td>{{ company }}</td>
-			<td class="{{ current_ratio_class }}">{{ current_ratio }}</td>
-			<td class="{{ debt_ratio_class }}">{{ debt_ratio }}</td>
-			<td class="{{ eps_annual_positive_class }}">{{ eps_annual_positive }}</td>
-			<td class="{{ eps_quarterly_pace_class }}">{{ eps_quarterly_pace }}</td>
-			<td class="{{ pe_class }}">{{ pe }} </td>
-			<!-- <td class="{{ pb_class }}">{{ pb }} </td> -->
-			<!-- <td class="{{ ps_class }}">{{ ps }} </td> -->
-			<!-- <td class="{{ pcf_class }}">{{ pcf }} </td> -->
-			<td class="{{ div_stock_class }}">{{ div_stock }}</td>
+			<td class="{{ current_ratio_class }}">{{ data.financials.current_ratio[0] }}</td>
+			<td class="{{ debt_ratio_class }}">{{ data.financials.debt_ratio[0] }}</td>
+			<td class="{{ eps_annual_positive_class }}">{{ data.financials.eps_annual_positive }}</td>
+			<td class="{{ eps_quarterly_pace_class }}">{{ data.financials.eps_quarterly_pace }}</td>
+			<td class="{{ pe_class }}">{{ data.valuation.pe }} </td>
+			<td class="{{ pb_class }}">{{ data.valuation.pb }} </td>
+			<td class="{{ ps_class }}">{{ data.valuation.ps }} </td>
+			<td class="{{ pcf_class }}">{{ data.valuation.pcf }} </td>
+			<td class="{{ div_stock_class }}">{{ data.valuation.div_stock }}</td>
 			<td>
 				<a href="https://finviz.com/quote.ashx?t={{ data.symbol }}" target="_blank" class="stock-external-page-link">
 					<img src="{{ url_for('static', filename='img/stocks-external-links/finviz.png') }}" title="finviz chart for {{ data.symbol }}" />

@@ -70,4 +70,33 @@ def fill_stocks_data_finviz(data, error):
         data.append(stock_data)
 
 def prepare_for_output(data):
-    pass
+    round_digits = 1
+    for symbol_data in data:
+        process_dictionary(symbol_data, 'financials', round_digits)
+        process_dictionary(symbol_data, 'valuation', round_digits)
+
+def process_dictionary(symbol_data, root_key, round_digits):
+    for key in symbol_data[root_key]:
+            value = symbol_data[root_key][key]
+
+            if isinstance(value, list):
+
+                for i in range(0, len(value)):
+                    value_tmp = value[i]
+
+                    if isinstance(value_tmp, float):
+                        value_tmp = round(value_tmp, round_digits)
+                    elif value_tmp is None:
+                        value_tmp = ''
+
+                    symbol_data[root_key][key][i] = value_tmp
+            else:
+
+                if isinstance(value, float):
+                    value = round(value, round_digits)
+                elif value is None:
+                    value = ''
+
+                symbol_data[root_key][key] = value
+
+
