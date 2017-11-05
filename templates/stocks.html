@@ -88,9 +88,15 @@
 
 <script type="text/javascript">
 	$(document).ready(function() {
-    	$('#stocks-table').DataTable({
-        	"order": [[ 1, "desc" ]]
-    	});
+		var table_prefs = {
+			scrollY: '70vh',
+			scrollX: true,
+	        scrollCollapse: true,
+	        paging: false,
+	    	"order": [[ 1, "desc" ]]
+		};
+
+    	$('#stocks-table').DataTable(table_prefs);
 	});
 </script>
 
