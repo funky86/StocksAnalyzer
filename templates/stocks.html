@@ -10,7 +10,7 @@
 			<th colspan="2">Company</th>
 			<th colspan="2">Debt</th>
 			<th colspan="2">Growth rate</th>
-			<th colspan="4">Valuation</th>
+			<th>Valuation</th>
 			<th>Dividends</th>
 			<th>Tools</th>
 		</tr>
@@ -21,10 +21,11 @@
 			<th>Debt ratio</th>
 			<th>EPS ann [positive %]</th>
 			<th>EPS qrt [pace %]</th>
-			<th>P/E [avg %]</th>
+			<!-- <th>P/E [avg %]</th>
 			<th>Price/Book [avg %]</th>
 			<th>Price/Sales [avg %]</th>
-			<th>Price/Cash Flow [avg %]</th>
+			<th>Price/Cash Flow [avg %]</th> -->
+			<th>Average</th>
 			<th>Yield [%]</th>
 			<th>External links</th>
 		</tr>
@@ -43,11 +44,12 @@
 			{% set debt_ratio_class = 'success' if data.evaluation.debt_ratio else 'danger' %}
 			{% set eps_annual_positive_class = 'success' if data.evaluation.eps_annual_positive else 'danger' %}
 			{% set eps_quarterly_pace_class = 'success' if data.evaluation.eps_quarterly_pace else 'danger' %}
-			{% set pe_class = 'success' if data.evaluation.pe else 'danger' %}
+			<!-- {% set pe_class = 'success' if data.evaluation.pe else 'danger' %}
 			{% set pb_class = 'success' if data.evaluation.pb else 'danger' %}
 			{% set ps_class = 'success' if data.evaluation.ps else 'danger' %}
-			{% set pcf_class = 'success' if data.evaluation.pcf else 'danger' %}
-			{% set div_stock_class = 'success' if data.evaluation.div_stock else 'danger' %}			
+			{% set pcf_class = 'success' if data.evaluation.pcf else 'danger' %} -->
+			{% set average_valuation_class = 'success' if data.evaluation.average_valuation else 'danger' %}
+			{% set div_stock_class = 'success' if data.evaluation.div_stock else 'danger' %}
 
 			<td>{{ company }}</td>
 			<td>{{ data.evaluation.rating }}</td>
@@ -55,10 +57,11 @@
 			<td class="{{ debt_ratio_class }}">{{ data.financials.debt_ratio[0] }}</td>
 			<td class="{{ eps_annual_positive_class }}">{{ data.financials.eps_annual_positive }}</td>
 			<td class="{{ eps_quarterly_pace_class }}">{{ data.financials.eps_quarterly_pace }}</td>
-			<td class="{{ pe_class }}">{{ data.valuation.pe }} </td>
+			<!--<td class="{{ pe_class }}">{{ data.valuation.pe }} </td>
 			<td class="{{ pb_class }}">{{ data.valuation.pb }} </td>
 			<td class="{{ ps_class }}">{{ data.valuation.ps }} </td>
-			<td class="{{ pcf_class }}">{{ data.valuation.pcf }} </td>
+			<td class="{{ pcf_class }}">{{ data.valuation.pcf }} </td> -->
+			<td class="{{ average_valuation_class }}">{{ data.valuation.average }}</td>
 			<td class="{{ div_stock_class }}">{{ data.valuation.div_stock }}</td>
 			<td>
 				<a href="https://finviz.com/quote.ashx?t={{ data.symbol }}" target="_blank" class="stock-external-page-link">

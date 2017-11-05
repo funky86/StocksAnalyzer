@@ -21,6 +21,7 @@ def get_values(symbol):
     data['valuation']['pb'] = None
     data['valuation']['ps'] = None
     data['valuation']['pcf'] = None
+    data['valuation']['average'] = None
     
     data['evaluation'] = {}
     data['evaluation']['current_ratio'] = None
@@ -32,12 +33,14 @@ def get_values(symbol):
     data['evaluation']['pb'] = None
     data['evaluation']['ps'] = None
     data['evaluation']['pcf'] = None
+    data['evaluation']['average_valuation'] = 0
     data['evaluation']['rating'] = 0
 
     if data['error']:
         return data
 
     calculate_ratios(data)
+
     calculate_eps_growth(data, 'eps_quarterly', 'eps_quarterly_growth', 'eps_quarterly_positive')
     calculate_eps_growth(data, 'eps_annual', 'eps_annual_growth', 'eps_annual_positive')
     calculate_eps_pace(data, 'eps_quarterly', 'eps_quarterly_pace')
@@ -46,6 +49,7 @@ def get_values(symbol):
     calculate_price_average(data, 'pb', 'pb_stock', ['pb_stock_5y', 'pb_industry', 'pb_s&p'])
     calculate_price_average(data, 'ps', 'ps_stock', ['ps_stock_5y', 'ps_industry', 'ps_s&p'])
     calculate_price_average(data, 'pcf', 'pcf_stock', ['pcf_stock_5y', 'pcf_industry', 'pcf_s&p'])
+    calculate_average(data, 'average', ['pe','pb','ps','pcf'])
 
     evaluate_values(data)
 
@@ -146,6 +150,20 @@ def calculate_price_average(data, key_result, key_value, key_checks):
     except:
         pass
 
+def calculate_average(data, key_result, key_values):
+    try:
+        summary = 0
+        count = 0
+        for key in key_values:
+            value = data['valuation'][key]
+            if isinstance(value, float):
+                summary += value
+                count += 1
+        avg = summary / count
+        data['valuation'][key_result] = avg
+    except:
+        pass
+
 def calculate_eps_pace(data, key_value, key_pace):
     try:
         eps = data['financials'][key_value]
@@ -219,6 +237,11 @@ def evaluate_values(data):
 
     try:
         data['evaluation']['pcf'] = data['valuation']['pcf'] < 0
+    except:
+        pass
+
+    try:
+        data['evaluation']['average_valuation'] = data['valuation']['average'] < 0
     except:
         pass
 
