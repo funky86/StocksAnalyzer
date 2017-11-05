@@ -7,7 +7,7 @@
 <table id="stocks-table" class="table table-striped table-hover table-condensed">
 	<thead>
 		<tr>
-			<th>Company</th>
+			<th colspan="2">Company</th>
 			<th colspan="2">Debt</th>
 			<th colspan="2">Growth rate</th>
 			<th colspan="4">Valuation</th>
@@ -16,6 +16,7 @@
 		</tr>
 		<tr>
 			<th>Name and stock symbol</th>
+			<th>Rating</th>
 			<th>Current ratio</th>
 			<th>Debt ratio</th>
 			<th>EPS ann [positive %]</th>
@@ -49,6 +50,7 @@
 			{% set div_stock_class = 'success' if data.evaluation.div_stock else 'danger' %}			
 
 			<td>{{ company }}</td>
+			<td>{{ data.evaluation.rating }}</td>
 			<td class="{{ current_ratio_class }}">{{ data.financials.current_ratio[0] }}</td>
 			<td class="{{ debt_ratio_class }}">{{ data.financials.debt_ratio[0] }}</td>
 			<td class="{{ eps_annual_positive_class }}">{{ data.financials.eps_annual_positive }}</td>

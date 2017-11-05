@@ -32,6 +32,7 @@ def get_values(symbol):
     data['evaluation']['pb'] = None
     data['evaluation']['ps'] = None
     data['evaluation']['pcf'] = None
+    data['evaluation']['rating'] = 0
 
     if data['error']:
         return data
@@ -218,3 +219,10 @@ def evaluate_values(data):
         data['evaluation']['pcf'] = data['valuation']['pcf'] < 0
     except:
         pass
+
+    rating = 0
+    for key in data['evaluation']:
+        value = data['evaluation'][key]
+        if value is True:
+            rating += 1
+    data['evaluation']['rating'] = rating
