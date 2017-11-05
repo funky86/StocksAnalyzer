@@ -41,10 +41,12 @@ def get_values(symbol):
     calculate_eps_growth(data, 'eps_quarterly', 'eps_quarterly_growth', 'eps_quarterly_positive')
     calculate_eps_growth(data, 'eps_annual', 'eps_annual_growth', 'eps_annual_positive')
     calculate_eps_pace(data, 'eps_quarterly', 'eps_quarterly_pace')
-    calculate_average(data, 'pe', 'pe_stock', ['pe_stock_5y', 'pe_industry', 'pe_s&p'])
-    calculate_average(data, 'pb', 'pb_stock', ['pb_stock_5y', 'pb_industry', 'pb_s&p'])
-    calculate_average(data, 'ps', 'ps_stock', ['ps_stock_5y', 'ps_industry', 'ps_s&p'])
-    calculate_average(data, 'pcf', 'pcf_stock', ['pcf_stock_5y', 'pcf_industry', 'pcf_s&p'])
+
+    calculate_price_average(data, 'pe', 'pe_stock', ['pe_stock_5y', 'pe_industry', 'pe_s&p'])
+    calculate_price_average(data, 'pb', 'pb_stock', ['pb_stock_5y', 'pb_industry', 'pb_s&p'])
+    calculate_price_average(data, 'ps', 'ps_stock', ['ps_stock_5y', 'ps_industry', 'ps_s&p'])
+    calculate_price_average(data, 'pcf', 'pcf_stock', ['pcf_stock_5y', 'pcf_industry', 'pcf_s&p'])
+
     evaluate_values(data)
 
     return data
@@ -131,7 +133,7 @@ def calculate_eps_growth(data, key_value, key_growth, key_positive):
     except:
         pass
 
-def calculate_average(data, key_result, key_value, key_checks):
+def calculate_price_average(data, key_result, key_value, key_checks):
     value = data['valuation'][key_value]
 
     try:
