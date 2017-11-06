@@ -20,6 +20,10 @@ h5 {
     font-weight: bold;
 }
 
+.page {
+    padding: 10px;
+}
+
 .error-message {
     color: red;
 }
