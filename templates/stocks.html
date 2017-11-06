@@ -9,15 +9,21 @@
 <table id="stocks-table" class="table table-striped table-hover table-condensed" width="100%">
 	<thead>
 		<tr>
-			<th colspan="2">Company</th>
+			<th colspan="2" nowrap>
+				Company <span id="info-text-company" class="info-text-icon" />
+			</th>
 
 			<th colspan="2" nowrap>
 				Debt <span id="info-text-debt" class="info-text-icon" />
 			</th>
 
-			<th colspan="2">Growth rate</th>
+			<th colspan="2" nowrap>
+				Growth rate <span id="info-text-growth-rate" class="info-text-icon" />
+			</th>
 
-			<th>Valuation</th>
+			<th nowrap>
+				Valuation <span id="info-text-valuation" class="info-text-icon" />
+			</th>
 
 			<th>Dividends</th>
 
@@ -98,6 +104,20 @@
 <span class="error-message">Error: {{ error[0] }}</span>
 {% endif %}
 
+<span id="info-text-company-data" style="display: none;">
+	<span>
+		<strong>Columns info</strong>
+	</span>
+
+	<span>
+		<strong>Rating</strong>
+
+		<p>
+			Number of green cells of a stock. If a cell is green, it meets the criteria or else it's red.
+		</p>
+	</span>
+</span>
+
 <span id="info-text-debt-data" style="display: none;">
 	<span>
 		<strong>Columns info</strong>
@@ -106,16 +126,72 @@
 	<span>
 		<strong>Current ratio</strong>
 
-		<p>Min 1.5</p>
+		<p>Should be: at least 1.5</p>
 		<p>
-			The ratio of current assets divided by current liabilities. Current ratio is a measure of liquidity.
+			The ratio of current assets divided by current liabilities. Current ratio is a measure of liquidity. If the company's current ratio is too high it may indicate that the company is not efficiently using its current assets or its short-term financing facilities.
 		</p>
+
+		<hr />
 
 		<strong>Debt ratio</strong>
 
-		<p>Max 1.1</p>
+		<p>Should be: 1.1 or less</p>
 		<p>
-			Total Long Term Debt for the most recent quarter divided by the Total Assets for the same period.
+			Total Long Term Debt for the most recent quarter divided by the Total Assets for the same period. The higher the ratio, the greater risk will be associated with the firm's operation.
+		</p>
+	</span>
+</span>
+
+<span id="info-text-growth-rate-data" style="display: none;">
+	<span>
+		<strong>Columns info</strong>
+	</span>
+
+	<span>
+		<strong>EPS ann [positive %]</strong>
+
+		<p>Should be: 100%</p>
+		<p>
+			A percentage of positive past annual EPS (Earnings Per Share). All annual EPS should be positive.
+		</p>
+
+		<hr />
+
+		<strong>EPS qrt [pace %]</strong>
+
+		<p>Should be: above 0%</p>
+		<p>
+			The pace of past quarterly EPS growth. Quarterly EPS should have a positive growth.
+		</p>
+		<p>
+			For example for values 3,4,5,7,9 the pace would be 75%. In the first half (3,4,5) the average EPS is 4, in the second (5,7,9) the average EPS is 7. Growth from 4 to 7 is a growth of 75%.
+		</p>
+	</span>
+</span>
+
+<span id="info-text-valuation-data" style="display: none;">
+	<span>
+		<strong>Columns info</strong>
+	</span>
+
+	<span>
+		<strong>Average</strong>
+
+		<p>Should be: below 0%</p>
+		<p>
+			How much a stock is valuated regarding different factors (it's an average of all factors taken into account). The stock should be undervaluated compared to other companies and the market itself.
+		</p>
+		<p>
+			Factors:
+			<ul>
+			<li>P/E [avg %]</li>
+			<li>Price/Book [avg %]</li>
+			<li>Price/Sales [avg %]</li>
+			<li>Price/Cash Flow [avg %]</li>
+			</ul>
+		</p>
+		<p>
+		For example for P/E it's calculated for how much the P/E of a stock is less compared to industry average P/E, S&P 500 average P/E and the 5 years average P/E of the stock itself. Such average valuation is calculated for all mentioned factors.
 		</p>
 	</span>
 </span>

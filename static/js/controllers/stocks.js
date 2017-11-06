@@ -12,7 +12,10 @@ function initDataTable() {
 
 function initInfoTexts() {
 	var infoTextIds = [
-		'info-text-debt'
+		'info-text-company',
+		'info-text-debt',
+		'info-text-growth-rate',
+		'info-text-valuation'
 	];
 
 	for (var i = 0; i < infoTextIds.length; i++) {
