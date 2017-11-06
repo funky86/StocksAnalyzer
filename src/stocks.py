@@ -52,6 +52,7 @@ def get_values(symbol):
     calculate_average(data, 'average', ['pe','pb','ps','pcf'])
 
     evaluate_values(data)
+    calculate_evaluation_rating(data, 'rating', ['current_ratio', 'debt_ratio', 'eps_annual_positive', 'eps_quarterly_pace', 'div_stock', 'average_valuation'])
 
     return data
 
@@ -245,9 +246,13 @@ def evaluate_values(data):
     except:
         pass
 
-    rating = 0
-    for key in data['evaluation']:
-        value = data['evaluation'][key]
-        if value is True:
-            rating += 1
-    data['evaluation']['rating'] = rating
+def calculate_evaluation_rating(data, key_result, key_values):
+    try:
+        rating = 0
+        for key in key_values:
+            value = data['evaluation'][key]
+            if value is True:
+                rating += 1
+        data['evaluation'][key_result] = rating
+    except:
+        pass
