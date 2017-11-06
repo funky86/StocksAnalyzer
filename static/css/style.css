@@ -24,6 +24,15 @@ h5 {
     color: red;
 }
 
+.info-text-icon {
+    background: url('/static/img/info.png');
+    display: inline-block;
+    vertical-align: middle;
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+}
+
 .stock-external-page-link:hover {
     text-decoration: none;
 }

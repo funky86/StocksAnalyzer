@@ -2,16 +2,25 @@
 
 {% block body %}
 
+<script src="{{ url_for('static', filename='js/controllers/stocks.js') }}"></script>
+
 <span class="page-title">Stocks</span>
 
-<table id="stocks-table" class="table table-striped table-hover table-condensed">
+<table id="stocks-table" class="table table-striped table-hover table-condensed" width="100%">
 	<thead>
 		<tr>
 			<th colspan="2">Company</th>
-			<th colspan="2">Debt</th>
+
+			<th colspan="2" nowrap>
+				Debt <span id="info-text-debt" class="info-text-icon" />
+			</th>
+
 			<th colspan="2">Growth rate</th>
+
 			<th>Valuation</th>
+
 			<th>Dividends</th>
+
 			<th>Tools</th>
 		</tr>
 		<tr>
@@ -89,18 +98,26 @@
 <span class="error-message">Error: {{ error[0] }}</span>
 {% endif %}
 
-<script type="text/javascript">
-	$(document).ready(function() {
-		var table_prefs = {
-			scrollY: '70vh',
-			scrollX: true,
-	        scrollCollapse: true,
-	        paging: false,
-	    	"order": [[ 1, "desc" ]]
-		};
+<span id="info-text-debt-data" style="display: none;">
+	<span>
+		<strong>Columns info</strong>
+	</span>
 
-    	$('#stocks-table').DataTable(table_prefs);
-	});
-</script>
+	<span>
+		<strong>Current ratio</strong>
+
+		<p>Min 1.5</p>
+		<p>
+			The ratio of current assets divided by current liabilities. Current ratio is a measure of liquidity.
+		</p>
+
+		<strong>Debt ratio</strong>
+
+		<p>Max 1.1</p>
+		<p>
+			Total Long Term Debt for the most recent quarter divided by the Total Assets for the same period.
+		</p>
+	</span>
+</span>
 
 {% endblock %}
