@@ -35,5 +35,5 @@ def make_http_request():
 
 if __name__ == '__main__':
     logging.config.fileConfig(app_global.conf_dir + os.sep + 'logging.conf')
-    logger = logging.getLogger(__file__)
+    logger = logging.getLogger(os.path.basename(__file__))
     main()
