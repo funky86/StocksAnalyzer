@@ -98,5 +98,3 @@ def process_dictionary(symbol_data, root_key, round_digits):
                     value = ''
 
                 symbol_data[root_key][key] = value
-
-

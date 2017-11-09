@@ -44,7 +44,7 @@
 
 	<tbody>
 		{% for data in stocks_data %}
-		<tr>
+		<tr data-chart-url="{{ data.chart_url }}">
 			{% if data.error is none %}
 			{% set company = data.financials.company %}
 			{% else %}
@@ -183,5 +183,15 @@
 		</p>
 	</span>
 </span>
+
+<div id="chart-dialog" class="modal" role="dialog" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content" style="display:inline-block;">
+      <div class="modal-body">
+        <img src="" id="symbol-chart-image" />
+      </div>
+    </div>
+  </div>
+</div>
 
 {% endblock %}

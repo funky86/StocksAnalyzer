@@ -2,6 +2,10 @@ import copy
 import urllib.request
 
 from bs4 import BeautifulSoup
+from pathlib import Path
+from shutil import copyfile
+
+from src import app_global
 
 google_financials = {
     'error': None,
@@ -177,3 +181,23 @@ def get_google_values(table, search_string):
             break
     return data
 
+class StocksURLOpener(urllib.request.FancyURLopener):
+    version = 'Mozilla/5.0'
+
+url_opener = StocksURLOpener()
+
+def fetch_chart(symbol):
+    url_format = 'http://stockcharts.com/c-sc/sc?s={}&p=W&yr=10&mn=0&dy=0&i=p96700093712&r=1509991452925'
+    url = url_format.format(symbol)
+
+    response = url_opener.retrieve(url)
+    tmp_path = response[0]
+
+    tmp_file = Path(tmp_path)
+
+    if tmp_file.is_file():
+        permanent_path = app_global.Global.get_cache_chart_filename(symbol)
+        copyfile(tmp_path, permanent_path)
+        return permanent_path
+    else:
+        return ''

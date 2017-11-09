@@ -35,8 +35,24 @@ function initInfoTexts() {
 	}
 }
 
+function initTableRowClickEvents() {
+	$('#stocks-table tbody tr').on('click', function() {
+		var chartUrl = $(this).data('chart-url');
+		if (chartUrl.length > 0) {
+			$('#symbol-chart-image').attr('src', '/' + chartUrl);
+
+			var dialog = $('#chart-dialog');
+			dialog.modal('show');
+			dialog.on('click', function() {
+				dialog.modal('hide');
+			});
+		}
+	});
+}
+
 $(document).ready(function() {
 	initDataTable();
 	initInfoTexts();
+	initTableRowClickEvents();
 });
 
