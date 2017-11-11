@@ -8,17 +8,22 @@ import urllib.parse
 import app_global
 
 url_format = 'http://127.0.0.1:80/stocks?request_type=finviz&for_cache&url={0}'
-finviz_url = 'https://finviz.com/screener.ashx?v=411&s=ta_unusualvolume&ft=3'
+finviz_urls = [
+    'https://finviz.com/screener.ashx?v=411&s=ta_unusualvolume&ft=3',
+    'https://finviz.com/screener.ashx?v=411&f=fa_eps5years_o25,ta_perf_1wup,ta_perf2_dup&ft=4']
+
 
 def main():
     clean_old_cached_files()
-    make_http_request()
+    
+    for finviz_url in finviz_urls:
+        make_http_request(finviz_url)
 
 def clean_old_cached_files():
     count = app_global.Global.clean_old_cached_files()
     logger.info('Cache cleared: files count={0}'.format(count))
 
-def make_http_request():
+def make_http_request(finviz_url):
     logger.info('Caching started ...')
 
     start_time = time.time()

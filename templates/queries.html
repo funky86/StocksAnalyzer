@@ -14,8 +14,8 @@
 	<thead>
 		<tr>
 			<th>Type</th>
-			<th>Data</th>
 			<th>Description</th>
+			<th>Data</th>
 			<th>Options</th>
 		</tr>
 	</thead>
@@ -25,33 +25,32 @@
 		<tr>
 			<td>finviz.com</td>
 			
-			<td>{{ url }}</td>
-			
 			<td>
 				<ul>
 					<li>Signal: Unusal Volume</li>
 				</ul>
 			</td>
+
+			<td>{{ url }}</td>
 			
 			<td>
 				<a href="{{ url_for('stocks', request_type='finviz', url=url) }}" class="btn btn-primary" role="button">Show</a>
 			</td>
 		</tr>
 
-		{% set url = 'https://finviz.com/screener.ashx?v=411&s=ta_unusualvolume&f=ta_perf_dup,ta_perf2_52wdown,ta_sma20_pa&ft=3' %}
+		{% set url = 'https://finviz.com/screener.ashx?v=411&f=fa_eps5years_o25,ta_perf_1wup,ta_perf2_dup&ft=4' %}
 		<tr>
 			<td>finviz.com</td>
 			
-			<td>{{ url }}</td>
-			
 			<td>
 				<ul>
-					<li>Signal: Unusal Volume</li>
-					<li>Performance: Today Up</li>
-					<li>Performance 2: Year Down</li>
-					<li>20-Day Simple Moving Average: Price above SMA20</li>
+					<li>Performance: Week Up</li>
+					<li>Performance 2: Today Up</li>
+					<li>EPS growth past 5 years: Over 25%</li>
 				</ul>
 			</td>
+
+			<td>{{ url }}</td>
 			
 			<td>
 				<a href="{{ url_for('stocks', request_type='finviz', url=url) }}" class="btn btn-primary" role="button">Show</a>
