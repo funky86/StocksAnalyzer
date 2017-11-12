@@ -62,7 +62,8 @@ def fetch_data(symbol):
     data = {
         'error': None,
         'symbol': symbol,
-        'chart_url': '',
+        'chart_weekly': '',
+        'chart_daily': '',
         'financials': {},
         'valuation': {},
         'evaluation': {}
@@ -80,7 +81,8 @@ def fetch_data(symbol):
         else:
             data['financials'] = financials
             data['valuation'] = valuation
-            data['chart_url'] = stocks_fetcher.fetch_chart(symbol)
+            data['chart_weekly'] = stocks_fetcher.fetch_chart(symbol, 'weekly')
+            data['chart_daily'] = stocks_fetcher.fetch_chart(symbol, 'daily')
 
         with open(cache_file, 'w') as file:
             file.write(json.dumps(data))

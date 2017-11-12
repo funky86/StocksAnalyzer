@@ -44,7 +44,7 @@
 
 	<tbody>
 		{% for data in stocks_data %}
-		<tr data-chart-url="{{ data.chart_url }}">
+		<tr data-chart-weekly="{{ data.chart_weekly }}" data-chart-daily="{{ data.chart_daily }}">
 			{% if data.error is none %}
 			{% set company = data.financials.company %}
 			{% else %}
@@ -188,7 +188,11 @@
   <div class="modal-dialog">
     <div class="modal-content" style="display:inline-block;">
       <div class="modal-body">
-        <img src="" id="symbol-chart-image" />
+      	<p class="chart-dialog-title text-center">Weekly line chart</p>
+        <img src="" id="symbol-chart-weekly-image" />
+
+        <p class="chart-dialog-title text-center">Daily candlestick chart</p>
+        <img src="" id="symbol-chart-daily-image" />
       </div>
     </div>
   </div>

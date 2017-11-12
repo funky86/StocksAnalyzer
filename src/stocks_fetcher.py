@@ -186,8 +186,18 @@ class StocksURLOpener(urllib.request.FancyURLopener):
 
 url_opener = StocksURLOpener()
 
-def fetch_chart(symbol):
-    url_format = 'http://stockcharts.com/c-sc/sc?s={}&p=W&yr=10&mn=0&dy=0&i=p96700093712&r=1509991452925'
+chart_weekly_url = 'http://stockcharts.com/c-sc/sc?s={}&p=W&yr=8&mn=0&dy=0&i=p67486922145&r=1510499010459' # http://stockcharts.com/h-sc/ui?s=CHUY&p=W&yr=8&mn=0&dy=0&id=p67486922145
+chart_daily_url = 'http://stockcharts.com/c-sc/sc?s={}&p=D&b=3&g=0&i=p78358304466&r=1510501471617' # http://stockcharts.com/h-sc/ui?s=CHUY&p=D&b=3&g=0&id=p78358304466
+
+def fetch_chart(symbol, chart_type):
+    url_format = ''
+    if chart_type == 'weekly':
+        url_format = chart_weekly_url
+    elif chart_type == 'daily':
+        url_format = chart_daily_url
+    else:
+        raise Exception('Unknown chart type: {}'.format(chart_type))
+
     url = url_format.format(symbol)
 
     response = url_opener.retrieve(url)
@@ -196,7 +206,7 @@ def fetch_chart(symbol):
     tmp_file = Path(tmp_path)
 
     if tmp_file.is_file():
-        permanent_path = app_global.Global.get_cache_chart_filename(symbol)
+        permanent_path = app_global.Global.get_cache_chart_filename(symbol, chart_type)
         copyfile(tmp_path, permanent_path)
         return permanent_path
     else:

@@ -27,8 +27,9 @@ class Global:
     def get_cache_filename(symbol):
         return get_cache_filename_generic(symbol, '.json')
 
-    def get_cache_chart_filename(symbol):
-        return get_cache_filename_generic(symbol, '_chart.png')
+    def get_cache_chart_filename(symbol, chart_type):
+        extension = '_chart_{}.png'.format(chart_type)
+        return get_cache_filename_generic(symbol, extension)
 
     def clean_old_cached_files():
         Global.try_create_cache_dir()

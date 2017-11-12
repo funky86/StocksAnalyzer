@@ -37,16 +37,23 @@ function initInfoTexts() {
 
 function initTableRowClickEvents() {
 	$('#stocks-table tbody tr').on('click', function() {
-		var chartUrl = $(this).data('chart-url');
-		if (chartUrl.length > 0) {
-			$('#symbol-chart-image').attr('src', '/' + chartUrl);
+		var row = $(this);
 
-			var dialog = $('#chart-dialog');
-			dialog.modal('show');
-			dialog.on('click', function() {
-				dialog.modal('hide');
-			});
+		var chartWeekly = row.data('chart-weekly');
+		var chartDaily = row.data('chart-daily');
+
+		if (chartWeekly.length > 0) {
+			$('#symbol-chart-weekly-image').attr('src', '/' + chartWeekly);
 		}
+		if (chartDaily.length > 0) {
+			$('#symbol-chart-daily-image').attr('src', '/' + chartDaily);
+		}
+
+		var dialog = $('#chart-dialog');
+		dialog.modal('show');
+		dialog.on('click', function() {
+			dialog.modal('hide');
+		});
 	});
 }
 
