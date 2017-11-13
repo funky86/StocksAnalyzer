@@ -56,11 +56,14 @@ def fill_stocks_data_finviz(data, error):
     html = http_response.read()
 
     soup = BeautifulSoup(html, 'html.parser')
-    tables = soup.find_all('table')
-    spans = tables[12].find('tr').find('td').find_all('span')
+    table = soup.find('table', width="100%", cellpadding="10", cellspacing="0", border="0")
+    spans = table.find('tr').find('td').find_all('span')
 
     for span in spans:
-        symbol = span.b.string
+        if span.b:
+            symbol = span.b.string
+        else:
+            symbol = span.string
 
         if not symbol:
             continue

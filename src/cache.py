@@ -9,8 +9,8 @@ import app_global
 
 url_format = 'http://127.0.0.1:80/stocks?request_type=finviz&for_cache&url={0}'
 finviz_urls = [
-    'https://finviz.com/screener.ashx?v=411&s=ta_unusualvolume&ft=3',
-    'https://finviz.com/screener.ashx?v=411&f=fa_eps5years_o25,ta_perf_1wup,ta_perf2_dup&ft=4']
+    'https://finviz.com/screener.ashx?v=410&s=ta_unusualvolume&ft=3',
+    'https://finviz.com/screener.ashx?v=410&f=fa_eps5years_o25,ta_perf_1wup,ta_perf2_dup&ft=4']
 
 
 def main():
