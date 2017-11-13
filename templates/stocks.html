@@ -44,13 +44,14 @@
 
 	<tbody>
 		{% for data in stocks_data %}
-		<tr data-chart-weekly="{{ data.chart_weekly }}" data-chart-daily="{{ data.chart_daily }}">
-			{% if data.error is none %}
-			{% set company = data.financials.company %}
-			{% else %}
-			{% set company = data.symbol %}
-			{% endif %}
-			
+		
+		{% if data.error is none %}
+		{% set company = data.financials.company %}
+		{% else %}
+		{% set company = data.symbol %}
+		{% endif %}
+
+		<tr data-company="{{ company }}" data-chart-weekly="{{ data.chart_weekly }}" data-chart-daily="{{ data.chart_daily }}">			
 			{% set current_ratio_class = 'success' if data.evaluation.current_ratio else 'danger' %}
 			{% set debt_ratio_class = 'success' if data.evaluation.debt_ratio else 'danger' %}
 			{% set eps_annual_positive_class = 'success' if data.evaluation.eps_annual_positive else 'danger' %}
@@ -187,13 +188,17 @@
 <div id="chart-dialog" class="modal" role="dialog" tabindex="-1">
   <div class="modal-dialog">
     <div class="modal-content" style="display:inline-block;">
-      <div class="modal-body">
-      	<p class="chart-dialog-title text-center">Weekly line chart</p>
-        <img src="" id="symbol-chart-weekly-image" />
+    	<div class="modal-header">
+    		<p id="dialog-title" class="text-center"></p>
+    	</div>
 
-        <p class="chart-dialog-title text-center">Daily candlestick chart</p>
-        <img src="" id="symbol-chart-daily-image" />
-      </div>
+		<div class="modal-body">
+			<p class="chart-title text-center">Weekly line chart</p>
+			<img src="" id="symbol-chart-weekly-image" />
+
+			<p class="chart-title text-center">Daily candlestick chart</p>
+			<img src="" id="symbol-chart-daily-image" />
+		</div>
     </div>
   </div>
 </div>

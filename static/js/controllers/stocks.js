@@ -38,6 +38,10 @@ function initInfoTexts() {
 function initTableRowClickEvents() {
 	$('#stocks-table tbody tr').on('click', function() {
 		var row = $(this);
+		var dialog = $('#chart-dialog');
+		var dialogTitle = $('#chart-dialog #dialog-title');
+
+		dialogTitle.html(row.data('company'));
 
 		var chartWeekly = row.data('chart-weekly');
 		var chartDaily = row.data('chart-daily');
@@ -48,8 +52,7 @@ function initTableRowClickEvents() {
 		if (chartDaily.length > 0) {
 			$('#symbol-chart-daily-image').attr('src', '/' + chartDaily);
 		}
-
-		var dialog = $('#chart-dialog');
+		
 		dialog.modal('show');
 		dialog.on('click', function() {
 			dialog.modal('hide');
