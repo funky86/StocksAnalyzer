@@ -51,7 +51,7 @@
 		{% set company = data.symbol %}
 		{% endif %}
 
-		<tr data-company="{{ company }}" data-chart-weekly="{{ data.chart_weekly }}" data-chart-daily="{{ data.chart_daily }}">			
+		<tr data-company="{{ company }}" data-chart-weekly="{{ data.chart_weekly }}" data-chart-daily="{{ data.chart_daily }}" data-chart-finviz="{{ data.chart_finviz }}">
 			{% set current_ratio_class = 'success' if data.evaluation.current_ratio else 'danger' %}
 			{% set debt_ratio_class = 'success' if data.evaluation.debt_ratio else 'danger' %}
 			{% set eps_annual_positive_class = 'success' if data.evaluation.eps_annual_positive else 'danger' %}
@@ -198,6 +198,9 @@
 
 			<p class="chart-title text-center">Daily candlestick chart</p>
 			<img src="" id="symbol-chart-daily-image" />
+
+			<p class="chart-title text-center">Finviz technical chart</p>
+			<img src="" id="symbol-chart-finviz" />
 		</div>
     </div>
   </div>

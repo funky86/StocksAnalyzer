@@ -188,6 +188,7 @@ url_opener = StocksURLOpener()
 
 chart_weekly_url = 'http://stockcharts.com/c-sc/sc?s={}&p=W&yr=8&mn=0&dy=0&i=p67486922145&r=1510499010459' # http://stockcharts.com/h-sc/ui?s=CHUY&p=W&yr=8&mn=0&dy=0&id=p67486922145
 chart_daily_url = 'http://stockcharts.com/c-sc/sc?s={}&p=D&b=3&g=0&i=p78358304466&r=1510501471617' # http://stockcharts.com/h-sc/ui?s=CHUY&p=D&b=3&g=0&id=p78358304466
+chart_finviz_format = 'https://finviz.com/chart.ashx?t={}&ty=c&ta=1&p=d&s=l'
 
 def fetch_chart(symbol, chart_type):
     url_format = ''

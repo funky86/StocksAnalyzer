@@ -83,6 +83,7 @@ def fetch_data(symbol):
             data['valuation'] = valuation
             data['chart_weekly'] = stocks_fetcher.fetch_chart(symbol, 'weekly')
             data['chart_daily'] = stocks_fetcher.fetch_chart(symbol, 'daily')
+            data['chart_finviz'] = stocks_fetcher.chart_finviz_format.format(symbol)
 
         with open(cache_file, 'w') as file:
             file.write(json.dumps(data))

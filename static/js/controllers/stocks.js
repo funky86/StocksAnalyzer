@@ -45,12 +45,16 @@ function initTableRowClickEvents() {
 
 		var chartWeekly = row.data('chart-weekly');
 		var chartDaily = row.data('chart-daily');
+		var chartFinviz = row.data('chart-finviz');
 
 		if (chartWeekly.length > 0) {
 			$('#symbol-chart-weekly-image').attr('src', '/' + chartWeekly);
 		}
 		if (chartDaily.length > 0) {
 			$('#symbol-chart-daily-image').attr('src', '/' + chartDaily);
+		}
+		if (chartFinviz.length > 0) {
+			$('#symbol-chart-finviz').attr('src', chartFinviz);
 		}
 		
 		dialog.modal('show');
